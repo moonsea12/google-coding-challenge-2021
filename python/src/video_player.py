@@ -217,12 +217,11 @@ class VideoPlayer:
         if not len(self.libraryPlaylists):
             print("No playlists exist yet")
         else:
-            playlists = list(self.libraryPlaylists.keys())
+            playlists = sorted(self.libraryPlaylists, key=str.casefold)
 
-            print("")
             print("Showing all playlists:")
-            print("\t{}".format(*sorted(playlists)))
-            print("")
+            for name in playlists:
+                print("\t{}".format(name))
 
     def show_playlist(self, playlist_name):
         """Display all videos in a playlist with a given name.
