@@ -20,7 +20,9 @@ class VideoPlayer:
         self.videoList = self._video_library.get_all_videos()
 
     def number_of_videos(self):
-        num_videos = len(self._video_library.get_all_videos())
+        """Returns the number of videos in the library"""
+        
+        num_videos = len(self.videoList)
         print(f"{num_videos} videos in the library")
 
     def display_video_details(self, index):
