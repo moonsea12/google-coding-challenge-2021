@@ -21,11 +21,14 @@ class VideoPlayer:
 
     def number_of_videos(self):
         """Returns the number of videos in the library"""
-        
+
         num_videos = len(self.videoList)
         print(f"{num_videos} videos in the library")
 
     def display_video_details(self, index):
+        """Displays the details of specified video in the format of:
+        title (video_id) [tags]"""
+        
         print(f"{self.videoList[index].title} ({self.videoList[index].video_id}) [{' '.join(map(str, list(self.videoList[index].tags)))}]")
 
     def show_all_videos(self):
