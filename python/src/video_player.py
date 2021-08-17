@@ -74,10 +74,6 @@ class VideoPlayer:
     def play_random_video(self):
         """Plays a random video from the video library."""
 
-        """Play a random video. If a video is currently playing, display a note
-        that this video will be stopped, even if the same video is already
-        playing."""
-
         try:
             list_videos = self._video_library.get_all_videos()
             random_index = randint(0, len(list_videos)-1)
