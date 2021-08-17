@@ -253,7 +253,7 @@ class VideoPlayer:
                 print(" (" + video_iden + ") ", end='')
                 if video_object.tags:
                     tag = ' '.join(map(str, list(video_object.tags)))
-                    print("[" + tag + "]", end='')
+                    print("[" + tag + "]")
 
 
     def remove_from_playlist(self, playlist_name, video_id):
@@ -263,15 +263,6 @@ class VideoPlayer:
             playlist_name: The playlist name.
             video_id: The video_id to be removed.
         """
-
-        """if playlist does not exists:
-            print playlist doesnot exist
-            if video does not exist:
-                print that video does not exist
-            if video is not in the playlist:
-                print video is npt in the playlist
-            else:
-                remove the video"""
 
         library_playlists_lower = {k.lower():v for k, v in self.libraryPlaylists.items()}
         if  playlist_name.lower() not in library_playlists_lower:
@@ -300,7 +291,18 @@ class VideoPlayer:
         Args:
             playlist_name: The playlist name.
         """
-        print("clears_playlist needs implementation")
+
+        library_playlists_lower = {k.lower():v for k, v in self.libraryPlaylists.items()}
+        if  playlist_name.lower() not in library_playlists_lower:
+            print(f"Cannot clear playlist {playlist_name}: Playlist does not exist")
+            return
+
+        else:
+            for name in self.libraryPlaylists.keys():
+                if name.lower() == playlist_name.lower():
+                    self.libraryPlaylists[name].clear()
+                    print(f"Successfully removed all videos from {playlist_name}")
+
 
     def delete_playlist(self, playlist_name):
         """Deletes a playlist with a given name.
