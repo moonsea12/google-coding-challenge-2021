@@ -27,17 +27,16 @@ class VideoPlayer:
 
     def display_video_details(self, index):
         """Displays the details of specified video in the format of:
-        title (video_id) [tags]"""
-        
+        title (video_id) [tags]
+
+        Args:
+            index: The index of video in the library.
+        """
+
         print(f"{self.videoList[index].title} ({self.videoList[index].video_id}) [{' '.join(map(str, list(self.videoList[index].tags)))}]")
 
     def show_all_videos(self):
         """Returns all videos."""
-
-        """This command will list all available videos in the format:
-        “title (video_id) [tags]”. The videos should be shown in lexicographical
-        order by title. If there are no tags available, display empty brackets.
-        """
 
         print("Here's a list of all available videos:")
         self.videoList.sort(key=lambda x: x.title)
@@ -51,11 +50,6 @@ class VideoPlayer:
             video_id: The video_id to be played.
         """
 
-        """Play the specified video. If a video is currently playing, display a
-        note that this video will be stopped, even if the same video is already
-        playing. If the video doesn’t exist, display a warning message
-        (and don’t stop the currently playing video)."""
-
         video = self._video_library.get_video(video_id)
         if video == None:
             print("Cannot play video: Video does not exist")
@@ -68,9 +62,7 @@ class VideoPlayer:
             self.isPaused = False
 
     def stop_video(self):
-        """Stop the current playing video. If no video is currently playing,
-        display a warning message “Cannot stop video: No video is currently
-        playing” and do nothing."""
+        """Stops the current playing video."""
 
         if self.isPlaying == False and self.isPaused == False:
             print("Cannot stop video: No video is currently playing")
