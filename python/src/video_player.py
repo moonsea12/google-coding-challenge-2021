@@ -230,14 +230,6 @@ class VideoPlayer:
             playlist_name: The playlist name.
         """
 
-        """if playlist does not exist:
-                print playlist does not exist pytes
-            if playlist is empty:
-                Print no videos Here
-            else:
-                Showing playlsit playlist_name
-                Amazing Cats (amazing_cats_video_id) [#cat #animal]
-        """
         playlists = self.libraryPlaylists
 
         library_playlists_lower = {k.lower():v for k, v in self.libraryPlaylists.items()}
@@ -329,7 +321,43 @@ class VideoPlayer:
         Args:
             search_term: The query to be used in search.
         """
-        print("search_videos needs implementation")
+
+        video_list = self._video_library.get_all_videos()
+        found_titles = []
+        for i in range(len(video_list)-1):
+            if search_term.lower() in video_list[i].title.lower():
+                found_titles.append(video_list[i].title)
+        if len(found_titles) == 0:
+            print("No search results for blah")
+            return
+        else:
+            print("Here are the results for cat:")
+            index = 1
+            for name in found_titles:
+                for i in range(len(video_list)):
+                    if video_list[i].title.lower() == name.lower():
+                        video = self._video_library.get_video(video_list[i].video_id)
+                        print(f"\t{index}) {video.title}", end='')
+                        print(" (" + video.video_id + ") ", end='')
+                        if video.tags:
+                            tag = ' '.join(map(str, list(video.tags)))
+                            print("[" + tag + "]")
+                index = index + 1
+            print("Would you like to play any of the above? If yes, specify the number of the video.")
+            print("If your answer is not a valid number, we will assume it's a no.")
+            key = input()
+            try:
+                key = int(key)
+                val = True
+            except:
+                val = False
+            if val and key >= 0 and key <= len(video_list)-1:
+                video_to_be_played = found_titles[key-1]
+                for i in range(len(video_list)):
+                    if video_list[i].title.lower() == video_to_be_played.lower():
+                        video = self._video_library.get_video(video_list[i].video_id)
+                        self.play_video(video.video_id)
+
 
     def search_videos_tag(self, video_tag):
         """Display all videos whose tags contains the provided tag.
