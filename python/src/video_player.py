@@ -230,8 +230,31 @@ class VideoPlayer:
             playlist_name: The playlist name.
         """
 
-        """Checking if I can make changes to code and push it to GitHub"""
-        print("show_playlist needs implementation")
+        """if playlist does not exist:
+                print playlist does not exist pytes
+            if playlist is empty:
+                Print no videos Here
+            else:
+                Showing playlsit playlist_name
+                Amazing Cats (amazing_cats_video_id) [#cat #animal]
+        """
+        playlists = self.libraryPlaylists
+
+        library_playlists_lower = {k.lower():v for k, v in self.libraryPlaylists.items()}
+        if  playlist_name.lower() not in library_playlists_lower:
+            print(f"Cannot show playlist {playlist_name}: Playlist does not exist")
+        elif len(library_playlists_lower[playlist_name.lower()]) == 0:
+            print(f"Showing playlist: {playlist_name} \n\tNo videos here yet")
+        else:
+            print(f"Showing playlist: {playlist_name}")
+            for video_iden in library_playlists_lower[playlist_name.lower()]:
+                video_object = self._video_library.get_video(video_iden)
+                print("\t" + video_object.title, end='')
+                print(" (" + video_iden + ") ", end='')
+                if video_object.tags:
+                    tag = ' '.join(map(str, list(video_object.tags)))
+                    print("[" + tag + "]", end='')
+
 
     def remove_from_playlist(self, playlist_name, video_id):
         """Removes a video to a playlist with a given name.
