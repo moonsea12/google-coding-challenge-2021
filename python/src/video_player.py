@@ -310,7 +310,18 @@ class VideoPlayer:
         Args:
             playlist_name: The playlist name.
         """
-        print("deletes_playlist needs implementation")
+
+        library_playlists_lower = {k.lower():v for k, v in self.libraryPlaylists.items()}
+        if  playlist_name.lower() not in library_playlists_lower:
+            print(f"Cannot delete playlist {playlist_name}: Playlist does not exist")
+            return
+
+        else:
+            for name in self.libraryPlaylists.keys():
+                if name.lower() == playlist_name.lower():
+                    self.libraryPlaylists.pop(name)
+                    print(f"Deleted playlist: {playlist_name}")
+                    break
 
     def search_videos(self, search_term):
         """Display all the videos whose titles contain the search_term.
