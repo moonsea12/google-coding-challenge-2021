@@ -17,10 +17,14 @@ class VideoPlayer:
         self.currentlyPlaying = None
         self.isPaused = False
         self.libraryPlaylists = {}
+        self.videoList = self._video_library.get_all_videos()
 
     def number_of_videos(self):
         num_videos = len(self._video_library.get_all_videos())
         print(f"{num_videos} videos in the library")
+
+    def display_video_details(self, index):
+        print(f"{self.videoList[index].title} ({self.videoList[index].video_id}) [{' '.join(map(str, list(self.videoList[index].tags)))}]")
 
     def show_all_videos(self):
         """Returns all videos."""
@@ -31,11 +35,9 @@ class VideoPlayer:
         """
 
         print("Here's a list of all available videos:")
-        array = []
-        array = self._video_library.get_all_videos()
-        array.sort(key=lambda x: x.title)
-        for i in range(len(array)):
-            print("{0} ({1}) [{2}]".format(array[i].title, array[i].video_id, ' '.join(map(str, list(array[i].tags)))))
+        self.videoList.sort(key=lambda x: x.title)
+        for index in range(len(self.videoList)):
+            self.display_video_details(index)
 
     def play_video(self, video_id):
         """Plays the respective video.
@@ -50,16 +52,15 @@ class VideoPlayer:
         (and don’t stop the currently playing video)."""
 
         video = self._video_library.get_video(video_id)
-        try:
-            video_title = video.title
+        if video == None:
+            print("Cannot play video: Video does not exist")
+        else:
             if self.isPlaying == True or self.isPaused == True:
                 print("Stopping video: " + self.currentlyPlaying)
-            print("Playing video: " + video_title)
-            self.currentlyPlaying = video_title
+            print("Playing video: " + video.title)
+            self.currentlyPlaying = video.title
             self.isPlaying = True
             self.isPaused = False
-        except:
-            print("Cannot play video: Video does not exist")
 
     def stop_video(self):
         """Stop the current playing video. If no video is currently playing,
