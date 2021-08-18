@@ -292,11 +292,10 @@ class VideoPlayer:
             search_term: The query to be used in search.
         """
 
-        video_list = self._video_library.get_all_videos()
         found_titles = []
-        for i in range(len(video_list)-1):
-            if search_term.lower() in video_list[i].title.lower():
-                found_titles.append(video_list[i].title)
+        for i in range(len(self.videoList)-1):
+            if search_term.lower() in self.videoList[i].title.lower():
+                found_titles.append(self.videoList[i].title)
         if len(found_titles) == 0:
             print("No search results for blah")
             return
@@ -304,14 +303,9 @@ class VideoPlayer:
             print("Here are the results for cat:")
             index = 1
             for name in found_titles:
-                for i in range(len(video_list)):
-                    if video_list[i].title.lower() == name.lower():
-                        video = self._video_library.get_video(video_list[i].video_id)
-                        print(f"\t{index}) {video.title}", end='')
-                        print(" (" + video.video_id + ") ", end='')
-                        if video.tags:
-                            tag = ' '.join(map(str, list(video.tags)))
-                            print("[" + tag + "]")
+                for i in range(len(self.videoList)):
+                    if self.videoList[i].title.lower() == name.lower():
+                        print(f"\t{index}) {self.display_video_details(i)}")
                 index = index + 1
             print("Would you like to play any of the above? If yes, specify the number of the video.")
             print("If your answer is not a valid number, we will assume it's a no.")
@@ -321,11 +315,11 @@ class VideoPlayer:
                 val = True
             except:
                 val = False
-            if val and key >= 0 and key <= len(video_list)-1:
+            if val and key >= 0 and key <= len(self.videoList)-1:
                 video_to_be_played = found_titles[key-1]
-                for i in range(len(video_list)):
-                    if video_list[i].title.lower() == video_to_be_played.lower():
-                        video = self._video_library.get_video(video_list[i].video_id)
+                for i in range(len(self.videoList)):
+                    if self.videoList[i].title.lower() == video_to_be_played.lower():
+                        video = self._video_library.get_video(self.videoList[i].video_id)
                         self.play_video(video.video_id)
 
 
