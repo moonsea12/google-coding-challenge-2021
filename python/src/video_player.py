@@ -132,19 +132,16 @@ class VideoPlayer:
             playlist_name: The playlist name.
         """
 
-        try:
-            if len(self.libraryPlaylists) == 0:
+        if len(self.libraryPlaylists) == 0:
+            self.libraryPlaylists[playlist_name] = []
+            print("Successfully created new playlist: " + playlist_name)
+        else:
+            dic_lower = [k.lower() for k in self.libraryPlaylists.keys()]
+            if playlist_name.lower() in dic_lower:
+                print("Cannot create playlist: A playlist with the same name already exists")
+            else:
                 self.libraryPlaylists[playlist_name] = []
                 print("Successfully created new playlist: " + playlist_name)
-            else:
-                dic_lower = [k.lower() for k in self.libraryPlaylists.keys()]
-                if playlist_name.lower() in dic_lower:
-                    print("Cannot create playlist: A playlist with the same name already exists")
-                else:
-                    self.libraryPlaylists[playlist_name] = []
-                    print("Successfully created new playlist: " + playlist_name)
-        except:
-            print("Error")
 
     def add_to_playlist(self, playlist_name, video_id):
         """Adds a video to a playlist with a given name.
