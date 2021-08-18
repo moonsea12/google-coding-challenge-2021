@@ -33,7 +33,7 @@ class VideoPlayer:
             index: The index of video in the library.
         """
 
-        print(f"{self.videoList[index].title} ({self.videoList[index].video_id}) [{' '.join(map(str, list(self.videoList[index].tags)))}]")
+        return f"{self.videoList[index].title} ({self.videoList[index].video_id}) [{' '.join(map(str, list(self.videoList[index].tags)))}]"
 
     def show_all_videos(self):
         """Returns all videos."""
@@ -41,7 +41,7 @@ class VideoPlayer:
         print("Here's a list of all available videos:")
         self.videoList.sort(key=lambda x: x.title)
         for index in range(len(self.videoList)):
-            self.display_video_details(index)
+            print(self.display_video_details(index))
 
     def play_video(self, video_id):
         """Plays the respective video.
@@ -110,20 +110,19 @@ class VideoPlayer:
     def show_playing(self):
         """Displays video currently playing."""
 
-        video = None
-        array = []
-        array = self._video_library.get_all_videos()
-        for i in range(len(array)):
-            if array[i].title == self.currentlyPlaying:
-                video = self._video_library.get_video(array[i].video_id)
+        if self.isPlaying == False and self.isPaused == False:
+            print("No video is currently playing")
+            return
 
+        for i in range(len(self.videoList)):
+            if self.videoList[i].title == self.currentlyPlaying:
+                video_current = self.display_video_details(i)
 
         if self.isPaused == True:
-            print("Currently playing: {0} ({1}) [{2}] - PAUSED".format(video.title, video.video_id, ' '.join(map(str, list(video.tags)))))
-        elif self.isPlaying == False and self.isPaused == False:
-            print("No video is currently playing")
+            print(f"Currently playing: {video_current} - PAUSED")
+            return
         else:
-            print("Currently playing: {0} ({1}) [{2}]".format(video.title, video.video_id, ' '.join(map(str, list(video.tags)))))
+            print(f"Currently playing: {video_current}")
 
 
     def create_playlist(self, playlist_name):
