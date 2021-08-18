@@ -297,10 +297,10 @@ class VideoPlayer:
             if search_term.lower() in self.videoList[i].title.lower():
                 found_titles.append(self.videoList[i].title)
         if len(found_titles) == 0:
-            print("No search results for blah")
+            print(f"No search results for {search_term}")
             return
         else:
-            print("Here are the results for cat:")
+            print(f"Here are the results for {search_term}:")
             index = 1
             for name in found_titles:
                 for i in range(len(self.videoList)):
@@ -329,7 +329,36 @@ class VideoPlayer:
         Args:
             video_tag: The video tag to be used in search.
         """
-        print("search_videos_tag needs implementation")
+        found_titles = []
+        for i in range(len(self.videoList)-1):
+            tags_lower = (t.lower() for t in self.videoList[i].tags)
+            if video_tag.lower() in tags_lower:
+                found_titles.append(self.videoList[i].title)
+        if len(found_titles) == 0:
+            print(f"No search results for {video_tag}")
+            return
+        else:
+            print(f"Here are the results for {video_tag}:")
+            index = 1
+            for name in found_titles:
+                for i in range(len(self.videoList)):
+                    if self.videoList[i].title.lower() == name.lower():
+                        print(f"\t{index}) {self.display_video_details(i)}")
+                index = index + 1
+            print("Would you like to play any of the above? If yes, specify the number of the video.")
+            print("If your answer is not a valid number, we will assume it's a no.")
+            key = input()
+            try:
+                key = int(key)
+                val = True
+            except:
+                val = False
+            if val and key >= 0 and key <= len(self.videoList)-1:
+                video_to_be_played = found_titles[key-1]
+                for i in range(len(self.videoList)):
+                    if self.videoList[i].title.lower() == video_to_be_played.lower():
+                        video = self._video_library.get_video(self.videoList[i].video_id)
+                        self.play_video(video.video_id)
 
     def flag_video(self, video_id, flag_reason=""):
         """Mark a video as flagged.
