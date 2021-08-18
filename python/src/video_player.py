@@ -165,16 +165,6 @@ class VideoPlayer:
             video_id: The video_id to be added.
         """
 
-        """
-            if playlist does not exist than display the # WARNING:
-            if the video does not exist than display the # WARNING:
-            elif check if the video is already in the playlist
-                if the video is in the playlist
-                    display the # WARNING:
-                else
-                    add the video
-        """
-
         """Do I need return in each if statement?"""
         try:
             video = self._video_library.get_video(video_id)
