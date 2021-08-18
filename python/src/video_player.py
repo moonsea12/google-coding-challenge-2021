@@ -86,17 +86,14 @@ class VideoPlayer:
     def pause_video(self):
         """Pauses the current video."""
 
-        try:
-            if self.isPaused == True:
-                print("Video already paused: " + self.currentlyPlaying)
-            elif self.isPlaying == True:
-                print("Pausing video: " + self.currentlyPlaying)
-                self.isPlaying = False
-                self.isPaused = True
-            else:
-                print("Cannot pause video: No video is currently playing")
-        except:
-            print("Error")
+        if self.isPaused == True:
+            print("Video already paused: " + self.currentlyPlaying)
+        elif self.isPlaying == True:
+            print("Pausing video: " + self.currentlyPlaying)
+            self.isPlaying = False
+            self.isPaused = True
+        else:
+            print("Cannot pause video: No video is currently playing")
 
     def continue_video(self):
         """Resumes playing the current video."""
