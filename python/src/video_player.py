@@ -29,7 +29,8 @@ class VideoPlayer:
         Args:
             index: The index of video in the library.
         """
-
+        if self.videoList[index].flag is not None:
+            return f"{self.videoList[index].title} ({self.videoList[index].video_id}) [{' '.join(map(str, list(self.videoList[index].tags)))}] - FLAGGED (reason: {self.videoList[index].flag})"
         return f"{self.videoList[index].title} ({self.videoList[index].video_id}) [{' '.join(map(str, list(self.videoList[index].tags)))}]"
 
     def show_all_videos(self):
