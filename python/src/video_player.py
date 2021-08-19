@@ -223,12 +223,7 @@ class VideoPlayer:
             print(f"Showing playlist: {playlist_name}")
             for video_iden in library_playlists_lower[playlist_name.lower()]:
                 video_object = self._video_library.get_video(video_iden)
-                print("\t" + video_object.title, end='')
-                print(" (" + video_iden + ") ", end='')
-                if video_object.tags:
-                    tag = ' '.join(map(str, list(video_object.tags)))
-                    print("[" + tag + "]")
-
+                print("\t", self.display_video_details(self.videoList.index(video_object)))
 
     def remove_from_playlist(self, playlist_name, video_id):
         """Removes a video to a playlist with a given name.
