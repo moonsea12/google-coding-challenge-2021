@@ -301,7 +301,7 @@ class VideoPlayer:
 
         found_titles = []
         for i in range(len(self.videoList)-1):
-            if search_term.lower() in self.videoList[i].title.lower():
+            if search_term.lower() in self.videoList[i].title.lower() and self.videoList[i].flag is None:
                 found_titles.append(self.videoList[i].title)
         if len(found_titles) == 0:
             print(f"No search results for {search_term}")
@@ -339,7 +339,7 @@ class VideoPlayer:
         found_titles = []
         for i in range(len(self.videoList)-1):
             tags_lower = (t.lower() for t in self.videoList[i].tags)
-            if video_tag.lower() in tags_lower:
+            if video_tag.lower() in tags_lower and self.videoList[i].flag is None:
                 found_titles.append(self.videoList[i].title)
         if len(found_titles) == 0:
             print(f"No search results for {video_tag}")
