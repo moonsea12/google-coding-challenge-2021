@@ -75,8 +75,15 @@ class VideoPlayer:
     def play_random_video(self):
         """Plays a random video from the video library."""
 
-        random_number = randint(0, len(self.videoList)-1)
-        video_random = self.videoList[random_number].title
+        video_list_unflagged = []
+        for video in self.videoList:
+            if video.flag is None:
+                video_list_unflagged.append(video)
+        if len(video_list_unflagged) == 0:
+            print("No videos available")
+            return
+        random_number = randint(0, len(video_list_unflagged)-1)
+        video_random = video_list_unflagged[random_number].title
         if self.isPlaying == True:
             print("Stopping video: " + self.currentlyPlaying)
         print("Playing video: " + video_random)
